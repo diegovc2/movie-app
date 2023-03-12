@@ -1,6 +1,11 @@
 import React from "react";
 
-const SearchBox = (props) => {
+interface Props {
+    readonly value: string;
+    readonly setSearchValue: (newValue: string) => void;
+}
+
+const SearchBox: React.FC<Props> = (props) => {
     return (
         <div className="col col-sm-4">
             <input

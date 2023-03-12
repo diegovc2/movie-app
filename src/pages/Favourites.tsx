@@ -2,22 +2,41 @@ import React from "react";
 import MovieList from "src/components/MovieList";
 import MovieListHeading from "src/components/MovieListHeading";
 import RemoveFavourites from "src/components/RemoveFavourites";
+import {removeFromFavourites} from "src/state/slice";
+import {Movie} from "src/state/types";
+import {RootState} from "src/state/store";
+import { connect } from "react-redux";
 
-interface Props {
-    readonly favourites: any[];
-    readonly removeFavouriteMovie: (movie: any) => void;
+interface StateProps {
+    readonly favourites: Movie[];
 }
 
-class Favourites extends React.Component<Props> {
+interface ActionProps {
+    readonly removeFromFavourites: (payload) => void;
+}
+
+class FavouritesComp extends React.Component<StateProps & ActionProps> {
 
     render() {
-        const {favourites, removeFavouriteMovie} = this.props;
+        const {favourites, removeFromFavourites} = this.props;
         return ( <><div className="row d-flex align-items-center mt-4 mb-4"></div>
         <div className="row">
             <MovieListHeading heading='Favourites' />
-            <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites}></MovieList>
+            <MovieList movies={favourites} searchValue="" handleFavouritesClick={removeFromFavourites}/>
         </div></>)
     }
 }
+
+const mapStateToProps = (state: RootState): StateProps => {
+    return {
+        favourites: state.movies.favourites
+    }
+}
+
+const mapDispatchToProps: ActionProps = {
+    removeFromFavourites
+}
+
+const Favourites = connect(mapStateToProps, mapDispatchToProps)(FavouritesComp);
 
 export default Favourites;

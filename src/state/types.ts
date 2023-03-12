@@ -9,7 +9,3 @@ export interface Movie {
     readonly img: string;
 
 }
-
-export interface Movies {
-    readonly movies: Movie[];
-}

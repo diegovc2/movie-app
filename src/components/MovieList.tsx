@@ -1,35 +1,80 @@
 import React from "react";
-import Popup from 'reactjs-popup';
 import MovieDetails from "./MovieDetails";
+import AddToFavourites from "./AddToFavourites";
+import { useNavigate } from "react-router-dom";
+import {Movie} from "src/state/types";
+import { addToFavourites } from "src/state/slice";
+import { useDispatch } from "react-redux";
 
-const MovieList = (props) => {
-    const FavouriteComponent = props.favouriteComponent;
+const filterMovie = (movie: Movie, searchValue: string): boolean => {
+    if (searchValue === "") {
+        return false;
+    }
+    if (movie.name.includes(searchValue)) {
+        return true;
+    }
+    if (movie.description.includes(searchValue)) {
+        return true;
+    }
+    if (movie.genres.find(genre => genre.includes(searchValue))) {
+        return true;
+    }
+    return false;
+}
+
+interface Props {
+    readonly movies: Movie[];
+    readonly searchValue: string;
+    readonly handleFavouritesClick: (payload: Movie) => void;
+}
+
+const MovieList: React.FC<Props> = (props) => {
+
+    const {movies, searchValue, handleFavouritesClick} = props;
+
+    let navigate = useNavigate();
+
+    const [filteredMovies, setFilteredMovies] = React.useState(movies);
+
+    React.useEffect(() => {
+        if (movies && searchValue !== undefined) {
+            setFilteredMovies(movies.filter(movie => !filterMovie(movie, searchValue)))
+        }
+    }, [movies, searchValue])
+    
+    const routeChange = (route) => {
+        navigate(route);
+    }
+
+    if (!movies) {
+        return null;
+    }
+
+
     var RenderMovies = null
     if (props.movies.map) {
-     RenderMovies = 
-        props.movies.map((movie, index) => {
+        RenderMovies =
+            filteredMovies.map((movie, index) => {
             
-            return movie ? 
-            (<div key={movie.name} className="image-container d-flex justify-content-start m-3">
-                
-                <Popup trigger={
-                <img src={movie.Poster} alt='movie' ></img>
-                }
-                modal >
-                <MovieDetails props = {movie}></MovieDetails>
-                </Popup>
-                <div
-                    onClick={() => props.handleFavouritesClick(movie)}
-                    className="overlay d-flex align-items-center justify-content-center">
+                return movie ?
+                    (<div key={movie.key} className="image-container d-flex justify-content-start m-3">
 
-                    <FavouriteComponent />
-                </div>
-            </div>) : null}
-        )}
+                        <img src={`/img/${movie.img}`} alt={movie.name} onClick={() => routeChange(movie.name)}></img>
+                        <MovieDetails props={movie}></MovieDetails>
+                        <div
+                            onClick={() => handleFavouritesClick(movie)}
+                            className="overlay d-flex align-items-center justify-content-center">
+
+                            <AddToFavourites />
+                        </div>
+                    </div>) : null
+            }
+            )
+    }
 
     return (
         <>
-            { 
+            {
                 RenderMovies
             }
         </>

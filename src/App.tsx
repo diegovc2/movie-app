@@ -19,24 +19,6 @@ const App = () => {
     const [searchValue, setSearchValue] = useState('');
     const [favourites, setFavourites] = useState([]);
 
-    const getMovieRequest = async (searchValue) => {
-        const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`;
-
-        const response = await fetch(url);
-        const responseJson = await response.json();
-
-        if (responseJson.Search) {
-            setMovies(responseJson.Search);
-        }
-
-    };
-
-    const addFavouriteMovie = (movie) => {
-        const newFavouriteList = [...favourites, movie];
-        setFavourites(newFavouriteList);
-        saveToLocalStorage(newFavouriteList);
-    };
-
     const removeFavouriteMovie = (movie) => {
         const newFavouriteList = favourites.filter(
             (favourite) => favourite.imdbID !== movie.imdbID
@@ -45,10 +27,6 @@ const App = () => {
         setFavourites(newFavouriteList);
         saveToLocalStorage(newFavouriteList);
     };
-
-    useEffect(() => {
-        getMovieRequest(searchValue);
-    }, [searchValue]);
 
     useEffect(() => {
         const movieFavourites = JSON.parse(
@@ -67,9 +45,9 @@ const App = () => {
     return (
         <div className='container-fluid movie-app'>
             <Routes>
-                <Route path={"/movies"} element={<Movies movies={movies} searchValue={searchValue} setSearchValue={setSearchValue} addFavouriteMovie={addFavouriteMovie}/>}/>
-                <Route path={"/movies/favourites"} element={<Favourites favourites={movies} removeFavouriteMovie={removeFavouriteMovie}/>}/>
-                <Route path="/" element={<Movies movies={movies} searchValue={searchValue} setSearchValue={setSearchValue} addFavouriteMovie={addFavouriteMovie}/>}/>
+                <Route path={"/movies"} element={<Movies searchValue={searchValue} setSearchValue={setSearchValue}/>}/>
+                <Route path={"/movies/favourites"} element={<Favourites/>}/>
+                <Route path="/" element={<Movies searchValue={searchValue} setSearchValue={setSearchValue}/>}/>
             </Routes>
 
         </div>

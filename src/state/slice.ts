@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Movies } from './types'
+import { Movie } from './types'
 
 export interface MoviesState {
-  movies: Movies | undefined;
+  movies: Movie[] | undefined;
+  favourites: Movie[];
 }
 
 const initialState: MoviesState = {
   movies: undefined,
+  favourites: []
 }
 
 export const moviesSlice = createSlice({
@@ -15,16 +17,24 @@ export const moviesSlice = createSlice({
   initialState,
   reducers: {
     populateMovies: (state, action) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.movies = action.payload;
     },
+    
+    addToFavourites: (state, action) => {
+      const movie = action.payload;
+      if (!state.favourites.find(favourite => favourite.id === movie.id)) {
+        state.favourites.push(movie);
+      }
+    },
+
+    removeFromFavourites: (state, action) => {
+      const movie = action.payload;
+      state.favourites = state.favourites.filter(favourite => favourite.id === movie.id);
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { populateMovies} = moviesSlice.actions
+export const { populateMovies, addToFavourites, removeFromFavourites} = moviesSlice.actions
 
 export default moviesSlice.reducer
