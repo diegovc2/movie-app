@@ -13,21 +13,22 @@ body {
   transition: transform 0.2s;
   height:25%;
   width:25%;
+
+    img {
+      height: 100%;
+      width: 100%;          
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+      
+      .overlay{
+        opacity: 1;      
+      }
+    }
 }
 
-.image-container > img {
-  height: 100%;
-  width: 100%;
-}
-
-.image-container:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-}
-
-.image-container:hover .overlay {
-  opacity: 1;
-}
 
 .overlay {
   position: absolute;

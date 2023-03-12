@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import MovieList from './components/MovieList';
-import MovieListHeading from './components/MovieListHeading';
-import SearchBox from './components/SearchBox';
-import AddFavourites from './components/AddToFavourites';
-import RemoveFavourites from './components/RemoveFavourites';
+import './App.scss';
+import { Route, Routes } from 'react-router';
+import Movies from './pages/Movies';
+import Favourites from './pages/Favourites';
+
+{/*TODO: CONNECT WITH THE TEXT of movie.mock.json
+            IMPLEMENT REDUX
+            MOVIE DETAIL
+            BACK AND FORWARD ROUTING
+            SASS
+            MAKE A FUNCTIONAL COMPONENT WITH HOOKS
+              */}
+
 
 const App = () => {
     const [movies, setMovies] = useState([]);
@@ -55,27 +62,16 @@ const App = () => {
         localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
     };
 
-    
+
 
     return (
         <div className='container-fluid movie-app'>
-            <div className='row d-flex align-items-center mt-4 mb-4'>
-                <MovieListHeading movies={movies} />
-                <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+            <Routes>
+                <Route path={"/movies"} element={<Movies movies={movies} searchValue={searchValue} setSearchValue={setSearchValue} addFavouriteMovie={addFavouriteMovie}/>}/>
+                <Route path={"/movies/favourites"} element={<Favourites favourites={movies} removeFavouriteMovie={removeFavouriteMovie}/>}/>
+                <Route path="/" element={<Movies movies={movies} searchValue={searchValue} setSearchValue={setSearchValue} addFavouriteMovie={addFavouriteMovie}/>}/>
+            </Routes>
 
-            </div>
-            <div className="row">
-                <MovieList movies={movies}
-                    favouriteComponent={AddFavourites}
-                    handleFavouritesClick={addFavouriteMovie}
-                />
-            </div>
-            <div className="row d-flex align-items-center mt-4 mb-4">
-                <MovieListHeading heading='Favourites' />
-            </div>
-            <div className="row">
-                <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites}></MovieList>
-            </div>
         </div>
     );
 };
