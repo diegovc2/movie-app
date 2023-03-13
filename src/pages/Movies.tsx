@@ -11,6 +11,7 @@ import { getMovies, countFavourites } from "src/state/selectors";
 import MoviesData from "./../content/movie.mock-data.json";
 
 import "./Movies.scss";
+import { Link } from "react-router-dom";
 
 interface StateProps {
     readonly movies: Movie[];
@@ -49,7 +50,7 @@ class MoviesComp extends React.Component<StateProps & ActionProps, { searchValue
                 <MovieListHeading heading={"Search"} />
                 <SearchBox value={this.state.searchValue} setSearchValue={this.setSearchValue.bind(this)} />
               
-                <div className="align-self-end">
+                <Link to={"/favourites"} className="align-self-end">
                 <button type="button" className="btn btn-outline-light">
                     <div className={"icon"}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
@@ -60,7 +61,7 @@ class MoviesComp extends React.Component<StateProps & ActionProps, { searchValue
                 
                     Favourites
                 </button>
-                </div>
+                </Link>
             </div>
             <div className="row">
                 <MovieList movies={movies}

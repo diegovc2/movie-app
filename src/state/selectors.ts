@@ -8,7 +8,13 @@ const getState = (state: RootState) => {
 
 export const getMovies = createSelector(getState, (state): Movie[] => state.movies);
 
-export const getFavourites = createSelector(getState, (state): Movie[] => state.favourites);
+export const getFavourites = createSelector(getState, (state): Movie[] => {
+    if (!state.favourites) {
+        const storedFavourites = localStorage.getItem("favourites");
+        return storedFavourites ? JSON.parse(storedFavourites) : null;
+    }
+    return state.favourites;
+});
 
 export const getMovie = createSelector(getMovies, (state, id) => id, (movies, id): Movie => {
     if (!movies) {

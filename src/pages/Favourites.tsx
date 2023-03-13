@@ -5,6 +5,7 @@ import RemoveFavourites from "src/components/RemoveFavourites";
 import {removeFromFavourites} from "src/state/slice";
 import {Movie} from "src/state/types";
 import {RootState} from "src/state/store";
+import { getFavourites } from "src/state/selectors";
 import { connect } from "react-redux";
 
 interface StateProps {
@@ -29,7 +30,7 @@ class FavouritesComp extends React.Component<StateProps & ActionProps> {
 
 const mapStateToProps = (state: RootState): StateProps => {
     return {
-        favourites: state.movies.favourites
+        favourites: getFavourites(state)
     }
 }
 

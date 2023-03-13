@@ -10,7 +10,7 @@ export interface MoviesState {
 
 const initialState: MoviesState = {
   movies: movieData,
-  favourites: []
+  favourites: localStorage.getItem("favourites") ? JSON.parse(localStorage.getItem("favourites")) : undefined
 }
 
 export const moviesSlice = createSlice({
@@ -23,6 +23,9 @@ export const moviesSlice = createSlice({
     
     addToFavourites: (state, action) => {
       const movie = action.payload;
+      if (!state.favourites) {
+        state.favourites = [];
+      }
       if (!state.favourites.find(favourite => favourite.id === movie.id)) {
         state.favourites.push(movie);
         localStorage.setItem("favourites", JSON.stringify(state.favourites));
@@ -30,9 +33,11 @@ export const moviesSlice = createSlice({
     },
 
     removeFromFavourites: (state, action) => {
-      const movie = action.payload;
-      state.favourites = state.favourites.filter(favourite => favourite.id === movie.id);
-      localStorage.setItem("favourites", JSON.stringify(state.favourites));
+      if (state.favourites) {
+        const movie = action.payload;
+        state.favourites = state.favourites.filter(favourite => favourite.id !== movie.id);
+        localStorage.setItem("favourites", JSON.stringify(state.favourites));
+      }
     }
   },
 })

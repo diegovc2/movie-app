@@ -22,7 +22,7 @@ const App = () => {
         <div className='container-fluid movie-app'>
             <Routes>
                 <Route path={"/movies/:id"} element={<MovieDetails/>}/>
-                <Route path={"/movies/favourites"} element={<Favourites/>}/>
+                <Route path={"/favourites"} element={<Favourites/>}/>
                 <Route path={"/movies"} element={<Movies/>}/>
                 <Route path="/" element={<Movies/>}/>
             </Routes>
