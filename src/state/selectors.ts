@@ -16,3 +16,10 @@ export const getMovie = createSelector(getMovies, (state, id) => id, (movies, id
     }
     return movies.find(movie => String(movie.id) === id);
 })
+
+export const countFavourites = createSelector(getFavourites, favourites => {
+    if (!favourites) {
+        return 0;
+    }
+    return favourites.length;
+})
