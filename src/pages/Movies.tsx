@@ -10,13 +10,6 @@ import { Movie } from "src/state/types";
 import MoviesData from "./../content/movie.mock-data.json";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-
-interface Props {
-    readonly searchValue: string;
-    readonly setSearchValue: any;
-}
-
 interface StateProps {
     readonly movies: Movie[];
 }
@@ -26,7 +19,7 @@ interface ActionProps {
     addToFavourites: (payload) => void;
 }
 
-class MoviesComp extends React.Component<Props & StateProps & ActionProps, { searchValue: string }> {
+class MoviesComp extends React.Component<StateProps & ActionProps, { searchValue: string }> {
 
     constructor(props) {
         super(props);
@@ -55,7 +48,7 @@ class MoviesComp extends React.Component<Props & StateProps & ActionProps, { sea
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" style={{ "color": "white" }} height="30" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                 </svg>
-                <button >{/*Number of Favorites */}</button>
+                <button>{/*Number of Favorites */}</button>
                 </div>
             <div className="row">
                 <MovieList movies={movies}
@@ -80,6 +73,6 @@ const mapDispatchToProps: ActionProps = {
     addToFavourites
 }
 
-const Movies = connect(mapStateToProps, mapDispatchToProps)(MoviesComp);
+const Movies = connect<StateProps, ActionProps>(mapStateToProps, mapDispatchToProps)(MoviesComp);
 
 export default Movies;

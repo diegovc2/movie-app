@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Movie } from './types'
+import movieData from "src/content/movie.mock-data.json";
 
 export interface MoviesState {
   movies: Movie[] | undefined;
@@ -8,7 +9,7 @@ export interface MoviesState {
 }
 
 const initialState: MoviesState = {
-  movies: undefined,
+  movies: movieData,
   favourites: []
 }
 

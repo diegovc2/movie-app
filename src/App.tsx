@@ -16,40 +16,15 @@ import MovieDetails from './components/MovieDetails';
 
 
 const App = () => {
-    const [movies, setMovies] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [favourites, setFavourites] = useState([]);
-
-    const removeFavouriteMovie = (movie) => {
-        const newFavouriteList = favourites.filter(
-            (favourite) => favourite.imdbID !== movie.imdbID
-        );
-
-        setFavourites(newFavouriteList);
-        saveToLocalStorage(newFavouriteList);
-    };
-
-    useEffect(() => {
-        const movieFavourites = JSON.parse(
-            localStorage.getItem('react-movie-app-favourites')
-        ) || [];
-
-        setFavourites(movieFavourites);
-    }, []);
-
-    const saveToLocalStorage = (items) => {
-        localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
-    };
-
-
 
     return (
         <div className='container-fluid movie-app'>
             <Routes>
                 <Route path={"/movies/:id"} element={<MovieDetails/>}/>
-                <Route path={"/movies"} element={<Movies searchValue={searchValue} setSearchValue={setSearchValue}/>}/>
                 <Route path={"/movies/favourites"} element={<Favourites/>}/>
-                <Route path="/" element={<Movies searchValue={searchValue} setSearchValue={setSearchValue}/>}/>
+                <Route path={"/movies"} element={<Movies/>}/>
+                <Route path="/" element={<Movies/>}/>
             </Routes>
 
         </div>
