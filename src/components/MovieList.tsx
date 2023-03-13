@@ -8,20 +8,15 @@ import { addToFavourites } from "src/state/slice";
 import { useDispatch } from "react-redux";
 import './MovieList.scss';
 
-const filterMovie = (movie: Movie, searchValue: string): boolean => {
+const isNotInTheList = (movie: Movie, searchValue: string): boolean => {
+    console.log(searchValue);
     if (searchValue === "") {
         return false;
     }
-    if (movie.name.includes(searchValue)) {
-        return true;
-    }
-    if (movie.description.includes(searchValue)) {
-        return true;
-    }
-    if (movie.genres.find(genre => genre.includes(searchValue))) {
-        return true;
-    }
-    return false;
+    const doesNotContainName = !movie.name.toLowerCase().includes(searchValue.toLowerCase());
+    const doesNotContainDescription = !movie.description.toLowerCase().includes(searchValue.toLowerCase());
+    const doesNotContainGenre = !movie.genres.find(genre => genre.toLowerCase().includes(searchValue.toLowerCase()));
+    return doesNotContainName && doesNotContainDescription && doesNotContainGenre;
 }
 
 interface Props {
@@ -34,28 +29,19 @@ const MovieList: React.FC<Props> = (props) => {
 
     const {movies, searchValue, handleFavouritesClick} = props;
 
-    let navigate = useNavigate();
-
     const [filteredMovies, setFilteredMovies] = React.useState(movies);
 
     React.useEffect(() => {
         if (movies && searchValue !== undefined) {
-            setFilteredMovies(movies.filter(movie => !filterMovie(movie, searchValue)))
+            setFilteredMovies(movies.filter(movie => !isNotInTheList(movie, searchValue)))
         }
     }, [movies, searchValue])
     
-    const routeChange = (route) => {
-        navigate(route);
-    }
-
     if (!movies) {
         return null;
     }
 
-
-    var RenderMovies = null
-    if (props.movies.map) {
-        RenderMovies =
+    const RenderMovies =
             filteredMovies.map((movie, index) => {
             
                 return movie ?
@@ -70,9 +56,7 @@ const MovieList: React.FC<Props> = (props) => {
                             <AddToFavourites />
                         </div>
                     </div>) : null
-            }
-            )
-    }
+            })
 
     return (
         <>
