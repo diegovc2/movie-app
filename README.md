@@ -16,7 +16,7 @@ Then you need to run it with
 
 ## Usage
 
-On the Movie List, if you click on one Movie it will send you to the Details.
-If you input words on search, it will filter the movies according to the word written.
-If you click the button Add to Favourites, it will add it to the Favorite List which you can acces later using the Favourites button
+On the Movie List, if you click on one Movie it will send you to the Details. <br/>
+If you input words on search, it will filter the movies according to the word written.<br/>
+If you click the button Add to Favourites, it will add it to the Favorite List wich is saved into localStorage. Then you can access later using the Favourites button  <br/> 
 
