@@ -1,8 +1,14 @@
 import React from "react";
-const MovieDetails = (props) => {
+import { useSelector } from "react-redux";
+import {useParams} from "react-router";
+import { getMovie, getMovies } from "src/state/selectors";
+const MovieDetails = () => {
+
+    const {id} = useParams();
 
     var content = null;
-    const {movie} = props;
+
+    const movie = useSelector((state) => getMovie(state, id));
 
     if (!movie) {
         return null;

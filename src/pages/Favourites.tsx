@@ -22,6 +22,7 @@ class FavouritesComp extends React.Component<StateProps & ActionProps> {
         return ( <><div className="row d-flex align-items-center mt-4 mb-4"></div>
         <div className="row">
             <MovieListHeading heading='Favourites' />
+            <i className="bi bi-heart-fill"></i>
             <MovieList movies={favourites} searchValue="" handleFavouritesClick={removeFromFavourites}/>
         </div></>)
     }

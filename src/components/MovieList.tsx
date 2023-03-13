@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import MovieDetails from "./MovieDetails";
 import AddToFavourites from "./AddToFavourites";
 import { useNavigate } from "react-router-dom";
 import {Movie} from "src/state/types";
 import { addToFavourites } from "src/state/slice";
 import { useDispatch } from "react-redux";
+import './MovieList.scss';
 
 const filterMovie = (movie: Movie, searchValue: string): boolean => {
     if (searchValue === "") {
@@ -58,9 +60,9 @@ const MovieList: React.FC<Props> = (props) => {
             
                 return movie ?
                     (<div key={movie.key} className="image-container d-flex justify-content-start m-3">
-
-                        <img src={`/img/${movie.img}`} alt={movie.name} onClick={() => routeChange(movie.name)}></img>
-                        <MovieDetails props={movie}></MovieDetails>
+                        <Link to={`/movies/${movie.id}`}>
+                        <img src={`/img/${movie.img}`} alt={movie.name}></img>
+                        </Link>
                         <div
                             onClick={() => handleFavouritesClick(movie)}
                             className="overlay d-flex align-items-center justify-content-center">

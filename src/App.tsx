@@ -4,6 +4,7 @@ import './App.scss';
 import { Route, Routes } from 'react-router';
 import Movies from './pages/Movies';
 import Favourites from './pages/Favourites';
+import MovieDetails from './components/MovieDetails';
 
 {/*TODO: CONNECT WITH THE TEXT of movie.mock.json
             IMPLEMENT REDUX
@@ -45,6 +46,7 @@ const App = () => {
     return (
         <div className='container-fluid movie-app'>
             <Routes>
+                <Route path={"/movies/:id"} element={<MovieDetails/>}/>
                 <Route path={"/movies"} element={<Movies searchValue={searchValue} setSearchValue={setSearchValue}/>}/>
                 <Route path={"/movies/favourites"} element={<Favourites/>}/>
                 <Route path="/" element={<Movies searchValue={searchValue} setSearchValue={setSearchValue}/>}/>
