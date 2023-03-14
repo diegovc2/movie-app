@@ -4,7 +4,7 @@ interface Props {
     readonly title: string;
 }
 
-const AddFavourites: React.FC<Props> = ({title}) => {
+const AlterFavourites: React.FC<Props> = ({title}) => {
     return (
         <>
             <span className="mr-2">{title}</span>
@@ -24,4 +24,4 @@ const AddFavourites: React.FC<Props> = ({title}) => {
     );
 };
 
-export default AddFavourites;
+export default AlterFavourites;

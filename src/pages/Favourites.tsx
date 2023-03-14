@@ -6,7 +6,7 @@ import { Movie } from "src/state/types";
 import { RootState } from "src/state/store";
 import { getFavourites } from "src/state/selectors";
 import { connect } from "react-redux";
-import AddToFavourites from "src/components/AddToFavourites";
+import AddToFavourites from "src/components/AlterFavourites";
 
 interface StateProps {
     readonly favourites: Movie[];

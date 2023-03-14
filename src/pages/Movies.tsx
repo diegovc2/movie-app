@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import AddFavourites from "src/components/AddToFavourites";
+import AlterFavourites from "src/components/AlterFavourites";
 import MovieList from "src/components/MovieList";
 import MovieListHeading from "src/components/MovieListHeading";
 import SearchBox from "src/components/SearchBox";
@@ -12,7 +12,7 @@ import MoviesData from "./../content/movie.mock-data.json";
 
 import "./Movies.scss";
 import { Link } from "react-router-dom";
-import AddToFavourites from "src/components/AddToFavourites";
+import AddToFavourites from "src/components/AlterFavourites";
 
 interface StateProps {
     readonly movies: Movie[];

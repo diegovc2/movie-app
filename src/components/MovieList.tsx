@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import MovieDetails from "./MovieDetails";
-import AddToFavourites from "./AddToFavourites";
+import AddToFavourites from "./AlterFavourites";
 import { useNavigate } from "react-router-dom";
 import {Movie} from "src/state/types";
 import { addToFavourites } from "src/state/slice";
