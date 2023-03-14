@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import './MovieList.scss';
 
 const isNotInTheList = (movie: Movie, searchValue: string): boolean => {
-    console.log(searchValue);
     if (searchValue === "") {
         return false;
     }
@@ -23,11 +22,12 @@ interface Props {
     readonly movies: Movie[];
     readonly searchValue: string;
     readonly handleFavouritesClick: (payload: Movie) => void;
+    readonly children: any;
 }
 
 const MovieList: React.FC<Props> = (props) => {
 
-    const {movies, searchValue, handleFavouritesClick} = props;
+    const {movies, searchValue, handleFavouritesClick, children} = props;
 
     const [filteredMovies, setFilteredMovies] = React.useState(movies);
 
@@ -45,15 +45,14 @@ const MovieList: React.FC<Props> = (props) => {
             filteredMovies.map((movie, index) => {
             
                 return movie ?
-                    (<div key={movie.key} className="image-container d-flex justify-content-start m-3">
+                    (<div key={movie.key} className="image-container align-items-center col-md-8">
                         <Link to={`/movies/${movie.id}`}>
                         <img src={`/img/${movie.img}`} alt={movie.name}></img>
                         </Link>
                         <div
                             onClick={() => handleFavouritesClick(movie)}
-                            className="overlay d-flex align-items-center justify-content-center">
-
-                            <AddToFavourites />
+                            className="overlay d-flex align-items-start justify-content-center">
+                                {children}
                         </div>
                     </div>) : null
             })

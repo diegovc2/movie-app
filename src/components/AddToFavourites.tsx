@@ -1,9 +1,13 @@
 import React from "react";
 
-const AddFavourites = () => {
+interface Props {
+    readonly title: string;
+}
+
+const AddFavourites: React.FC<Props> = ({title}) => {
     return (
         <>
-            <span className="mr-2"> Add to Favourites</span>
+            <span className="mr-2">{title}</span>
             <svg
                 width='1em'
                 height='1em'

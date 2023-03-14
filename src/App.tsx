@@ -16,8 +16,7 @@ import MovieDetails from './components/MovieDetails';
 
 
 const App = () => {
-    const [searchValue, setSearchValue] = useState('');
-
+    
     return (
         <div className='container-fluid movie-app'>
             <Routes>
